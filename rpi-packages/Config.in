@@ -1,0 +1,2 @@
+source "$BR2_EXTERNAL_RPI3_PACKAGES_PATH/package/deluge/Config.in"
+source "$BR2_EXTERNAL_RPI3_PACKAGES_PATH/package/sickrage/Config.in"

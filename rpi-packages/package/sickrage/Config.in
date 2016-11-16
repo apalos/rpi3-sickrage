@@ -1,0 +1,10 @@
+config BR2_PACKAGE_RPI3_SICKRAGE
+	bool "sickrage"
+	help
+	  Sickrage for RPI3
+
+	  https://sickrage.github.io/ 
+
+if BR2_PACKAGE_RPI3_SICKRAGE
+
+endif

@@ -1,0 +1,7 @@
+config BR2_PACKAGE_RPI3_DELUGE
+	bool "deluge"
+	help
+	  Deluge torrent client for RPI3
+
+	  http://deluge-torrent.org/
+
