@@ -20,13 +20,21 @@ export BR2_RPI3_PATH_EXTERNAL
 RPI3_MAKE_CMD=make -C buildroot-rpi3/ O=$(FINAL_BUILD_DIR) \
 				BR2_EXTERNAL=$(BR2_RPI3_PATH_EXTERNAL) \
 				BR2_DL_DIR=$(RPI3_START_DIR)/dl \
-				BINARIES_DIR=$(FINAL_BUILD_DIR)/images/$(BOARD)
+				BINARIES_DIR=$(FINAL_BUILD_DIR)/images/
 
+fresh-target:
+	rm -rf $(FINAL_BUILD_DIR)/build/*/.stamp_target_installed -rf
+	rm -rf $(FINAL_BUILD_DIR)/build/*/.stamp_images_installed -rf
+	rm -rf $(FINAL_BUILD_DIR)/build/.root
+	rm -rf $(FINAL_BUILD_DIR)/target
+	rm -rf $(BINARIES_DIR)/build/*/.stamp_target_installed -rf
+	rm -rf $(FINAL_BUILD_DIR)/images/*
+	$(RPI3_MAKE_CMD)
+	
 all:
-	@if [ ! -d $(RPI3_BUILDROOT_DIR) ]; then \
+	if [ ! -d $(RPI3_BUILDROOT_DIR) ]; then \
 		git clone  https://github.com/apalos/buildroot-rpi3.git; \
 	fi;
-	@echo $(RPI3_MAKE_CMD)
 	$(RPI3_MAKE_CMD)
 
 %:
