@@ -1,4 +1,4 @@
-config BR2_PACKAGE_RPI3_SICKRAGE
+config BR2_PACKAGE_SICKRAGE
 	bool "sickrage"
 	help
 	  Sickrage for RPI3

@@ -2689,5 +2689,5 @@ BR2_LINUX_KERNEL_CUSTOM_GIT_VERSION=""
 # RPI3 packages (in /home/apalos/work/rpi3/rpi-packages/)
 #
 BR2_EXTERNAL_RPI3_PACKAGES_PATH="/home/apalos/work/rpi3/rpi-packages/"
-# BR2_PACKAGE_RPI3_DELUGE is not set
-BR2_PACKAGE_RPI3_SICKRAGE=y
+# BR2_PACKAGE_DELUGE is not set
+BR2_PACKAGE_SICKRAGE=y
