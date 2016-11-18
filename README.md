@@ -1,4 +1,9 @@
 # rpi3
-make sickrage_defconfig
+- 1st build:
+	make all
 
-make
+- clean target and rebuild:
+	make fresh-target will clean target dir before rebuilding
+
+- re-make without cleaning:
+	make
