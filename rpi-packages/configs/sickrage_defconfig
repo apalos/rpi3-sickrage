@@ -377,7 +377,7 @@ BR2_ENABLE_LOCALE_WHITELIST="C en_US"
 # BR2_TARGET_TZ_INFO is not set
 BR2_ROOTFS_USERS_TABLES="$(BR2_EXTERNAL_RPI3_PACKAGES_PATH)/board/rpi3/common/users"
 BR2_ROOTFS_OVERLAY=""
-BR2_ROOTFS_POST_BUILD_SCRIPT="board/raspberrypi3/post-build.sh"
+BR2_ROOTFS_POST_BUILD_SCRIPT="board/raspberrypi3/post-build.sh $(BR2_EXTERNAL_RPI3_PACKAGES_PATH)/board/rpi3/common/scripts/post-build.sh"
 BR2_ROOTFS_POST_FAKEROOT_SCRIPT="$(BR2_EXTERNAL_RPI3_PACKAGES_PATH)/board/rpi3/common/scripts/finalize.sh"
 BR2_ROOTFS_POST_IMAGE_SCRIPT="board/raspberrypi3/post-image.sh"
 BR2_ROOTFS_POST_SCRIPT_ARGS="--add-pi3-miniuart-bt-overlay"
