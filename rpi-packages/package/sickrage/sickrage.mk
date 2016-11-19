@@ -15,8 +15,8 @@ define SICKRAGE_BUILD_CMDS
 endef
 
 define SICKRAGE_INSTALL_TARGET_CMDS
-	mkdir -p $(TARGET_DIR)/usr/local/sickrage
-	cp -aR $(@D) $(TARGET_DIR)/usr/local/sickrage
+	mkdir -p $(TARGET_DIR)/home/sickrage/sickrage
+	cp -aR $(@D)/* $(TARGET_DIR)/home/sickrage/sickrage
 endef
 
 $(eval $(generic-package))
