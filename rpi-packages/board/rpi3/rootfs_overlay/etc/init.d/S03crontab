@@ -7,6 +7,7 @@ DAEMON=" crond"
 DAEMON_OPTS=' -b'
 PID_PATH='/var/run/'
 PID_FILE="${PID_PATH}crontab.pid"
+CRON_PATH='/var/spool/cron/crontabs'
 
 prep_dir() {
 	mkdir -p "$CRON_PATH"
