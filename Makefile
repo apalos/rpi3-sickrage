@@ -23,6 +23,9 @@ RPI3_MAKE_CMD=make -C buildroot-rpi3/ O=$(FINAL_BUILD_DIR) \
 				BINARIES_DIR=$(FINAL_BUILD_DIR)/images/
 
 fresh:
+	@if [ ! -d $(RPI3_BUILDROOT_DIR) ]; then \
+		git clone  https://github.com/apalos/buildroot-rpi3.git; \
+	fi;
 	rm -rf $(FINAL_BUILD_DIR)/build/*/.stamp_target_installed -rf
 	rm -rf $(FINAL_BUILD_DIR)/build/*/.stamp_images_installed -rf
 	rm -rf $(FINAL_BUILD_DIR)/build/.root
@@ -30,12 +33,9 @@ fresh:
 	rm -rf $(BINARIES_DIR)/build/*/.stamp_target_installed -rf
 	rm -rf $(FINAL_BUILD_DIR)/images/*
 	$(RPI3_MAKE_CMD)
-	
-all:
-	@if [ ! -d $(RPI3_BUILDROOT_DIR) ]; then \
-		git clone  https://github.com/apalos/buildroot-rpi3.git; \
-	fi;
-	$(RPI3_MAKE_CMD)
+
+ragepie:
+	make raspberrypi3_defconfig
 
 update_config:
 	@cp builds/build_rpi3/.config rpi-packages/configs/sickrage_defconfig

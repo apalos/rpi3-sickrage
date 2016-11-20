@@ -1,0 +1,58 @@
+#!/bin/sh
+#
+# heavily based on from http://www.raspberryvi.org/wiki/doku.php/raspi-expand-rootfs
+#
+# Resize the root filesystem of a newly flashed Raspbian image.
+# Directly equivalent to the expand_rootfs section of raspi-config.
+# No claims of originality are made.
+# Mike Ray.  Feb 2013.  No warranty is implied.  Use at your own risk.
+#
+# Run as root.  Expands the root file system.  After running this,
+# reboot and give the resizefs-once script a few minutes to finish expanding the file system.
+# Check the file system with 'df -h' once it has run and you should see a size
+# close to the known size of your card.
+#
+
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+S='/etc/init.d/S02resize_root'
+K='/etc/init.d/K02resize_root'
+fdisked='etc/rootfs.fdisked'
+
+# Get the starting offset of the root partition
+part_start=$(fdisk -l | awk '/\/dev\/mmcblk0p2/ {print $2}')
+[ "$part_start" ] || return 1
+
+# Return value will likely be error for fdisk as it fails to reload the
+# partition table because the root fs is mounted
+run_fdisk () {
+	fdisk /dev/mmcblk0 <<EOF
+p
+d
+2
+n
+p
+2
+$PART_START
+
+p
+w
+EOF
+touch "$fdisked" && reboot
+}
+
+resize_fs() {
+	resize2fs /dev/mmcblk0p2 && mv "$S" "$K" && reboot
+}
+
+case "$1" in
+	start)
+		[ ! -e "$fdisked" ] && run_fdisk
+		resize_fs
+	;;
+	*)
+		N=/etc/init.d/$NAME
+		echo "Usage: $N {start}" >&2
+		exit 1
+	;;
+esac
+exit $?

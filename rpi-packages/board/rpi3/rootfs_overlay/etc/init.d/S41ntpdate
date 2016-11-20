@@ -1,0 +1,19 @@
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+start_ntpdate() {
+	ntpdate -v -b in.pool.ntp.org
+}
+
+case "$1" in
+	start)
+		start_ntpdate
+		exit $?
+	;;
+	*)
+		N=/etc/init.d/$NAME
+		echo "Usage: $N {start}" >&2
+		exit 1
+	;;
+esac
+exit $?

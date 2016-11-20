@@ -1,0 +1,49 @@
+#!/bin/sh
+
+NAME=$(basename "$0")
+RUN_AS=sickrage
+RUN_GROUP=sickrage
+APP_PATH='/home/sickrage/sickrage/'
+PID_PATH='/var/run/sickrage/'
+PID_FILE="${PID_PATH}sickrage.pid"
+DAEMON=`which python2.7`
+DATA_DIR='/home/sickrage/sickrage'
+DAEMON_OPTS=" ${APP_PATH}SickBeard.py -q --daemon --nolaunch --pidfile=${PID_FILE} --datadir=${DATA_DIR}"
+SICK_EXEC=" ${APP_PATH}SickBeard.py"
+
+prep_dir() {
+	mkdir -p "$PID_PATH"
+	chown $RUN_AS:$RUN_AS "$PID_PATH"
+}
+
+start_sickrage() {
+    start-stop-daemon -S -b -c $RUN_AS:$RUN_AS -q -p $PID_FILE --exec $DAEMON -- $DAEMON_OPTS
+}
+
+stop_sickrage() {
+    start-stop-daemon -K -u $RUN_AS -q -p $PID_FILE
+}
+
+case "$1" in
+	start)
+		prep_dir
+		start_sickrage
+		exit $?
+	;;
+	stop)
+		stop_sickrage
+		exit $?
+	;;
+	restart|force-reload)
+		stop_sickrage
+		sleep 2
+		start_sickrage
+		exit $?
+	;;
+	*)
+		N=/etc/init.d/$NAME
+		echo "Usage: $N {start|stop|restart|force-reload}" >&2
+		exit 1
+	;;
+esac
+exit $?

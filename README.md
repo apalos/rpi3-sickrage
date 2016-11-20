@@ -1,9 +1,10 @@
-# rpi3
-- 1st build:
-	make all
+# rpi3+sickrage 0.1-alpha
+# torrent client: transmission
 
-- clean target and rebuild:
-	make fresh-target will clean target dir before rebuilding
+MAKE:
+- make ragepie && make
+- Burn builds/build_rpi3/images/sdcard.img
+- Boot ypu rpi3. After two reboots, connect to "http:<rpi3 ip>:8081
 
-- re-make without cleaning:
-	make
+TODO:
+- wifi

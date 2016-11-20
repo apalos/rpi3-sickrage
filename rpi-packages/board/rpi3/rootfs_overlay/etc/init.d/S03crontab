@@ -1,0 +1,45 @@
+#!/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+NAME=$(basename "$0")
+RUN_AS=root
+DAEMON=" crond"
+DAEMON_OPTS=' -b'
+PID_PATH='/var/run/'
+PID_FILE="${PID_PATH}crontab.pid"
+
+prep_dir() {
+	mkdir -p "$CRON_PATH"
+}
+		
+start_cron() {
+	start-stop-daemon -S -b -c $RUN_AS:$RUN_AS -q -x $DAEMON -- $DAEMON_OPTS
+}
+
+stop_cron() {
+	start-stop-daemon -K -c $RUN_AS:$RUN_AS -q -x $DAEMON
+}
+
+case "$1" in
+	start)
+		prep_dir
+		start_cron
+		exit $?
+	;;
+	stop)
+		stop_cron
+		exit $?
+	;;
+	restart)
+		stop_cron
+		sleep 1
+		start_cron
+		exit $?
+	;;
+	*)
+		N=/etc/init.d/$NAME
+		echo "Usage: $N {startop|restart}" >&2
+		exit 1
+	;;
+esac
+exit $?
