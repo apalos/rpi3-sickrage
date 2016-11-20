@@ -35,7 +35,7 @@ fresh:
 	$(RPI3_MAKE_CMD)
 
 ragepie:
-	make raspberrypi3_defconfig
+	make sickrage_defconfig
 
 update_config:
 	@cp builds/build_rpi3/.config rpi-packages/configs/sickrage_defconfig
